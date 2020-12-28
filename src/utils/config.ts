@@ -1,0 +1,1 @@
+export const Key = 'isK3yT0Web_token=3!|.';
