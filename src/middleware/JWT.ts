@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import * as JWT from 'jsonwebtoken';
+import { getManager } from 'typeorm';
+import { Coach } from '../entity/Coach';
+import { Directive } from '../entity/Directives';
+import { User } from '../entity/Users';
+import { UserRoles } from '../entity/Users_roles';
 import {Key} from '../utils/config';
 
 //**  ********* */
@@ -68,4 +73,35 @@ export function BuildToken(email:string, id:number){
 
     const token = JWT.sign(payload, Key, options);
     return token;
+}
+
+
+
+export async function GetUserRole(req: Request, res: Response):Promise<User>{
+
+    // current user id
+    const { id } = await isLogged(req,res);
+    
+    const user = await getManager().getRepository(User).findOne(id);
+    // if(!user){
+    //     return false;
+    // }
+
+    return user;
+
+    // const directiveManager = getManager().getRepository(Directive);
+    // const isDirective = directiveManager.findOne({where: { directive: id}});
+
+    // if(isDirective){
+    //     return {
+    //         id: id,
+    //         type: 'DIRECTIVE',
+    //     }
+    // }
+
+    // const coachManager = getManager().getRepository(Coach);
+    // const isCoach = coachManager.findOne({where: { coach: id}});
+
+
+
 }

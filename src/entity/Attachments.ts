@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinTable,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToOne, JoinColumn,} from "typeorm";
+import { Candidate } from "./Candidates";
 import { User } from "./Users";
 
 @Entity()
@@ -25,5 +26,7 @@ export class Attachments {
     @Column("path")
     feeAgreement:string;
 
-    
+    @OneToOne(type => Candidate)
+    @JoinColumn()
+    candidate: Candidate;
 }

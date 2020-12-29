@@ -1,3 +1,4 @@
+import candidatesRoutes from "./controller/Candidates/CandidateRoutes";
 import {postGetAllAction} from "./controller/PostGetAllAction";
 import {postGetByIdAction} from "./controller/PostGetByIdAction";
 import {postSaveAction} from "./controller/PostSaveAction";
@@ -8,4 +9,5 @@ import userRoutes from "./controller/Users/UserRoutes";
  */
 export const AppRoutes = [
     ...userRoutes,
+    ...candidatesRoutes
 ];

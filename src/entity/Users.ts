@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, OneToOne,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, OneToOne, PrimaryColumn, JoinColumn, ManyToOne,} from "typeorm";
 import { Status } from "./Status";
 import { UserRoles } from "./Users_roles";
 
@@ -17,7 +17,6 @@ export class User {
     @Column()
     lastName: string;
 
-
     @Column()
     phone: string;
 
@@ -27,12 +26,18 @@ export class User {
     @Column("path", {nullable:true})
     image:string;
 
-    @OneToOne(type => UserRoles)
-    @JoinTable()
+    @ManyToOne(type => UserRoles, {
+        cascade:true,
+        primary:false,
+    })
+    @JoinColumn()
     role:UserRoles;
 
-    @OneToOne(type => Status)
-    @JoinTable()
+    @ManyToOne(type => Status, {
+        cascade:true,
+        primary:false, 
+    })
+    @JoinColumn()
     status:Status;
 
     

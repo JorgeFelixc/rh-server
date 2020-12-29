@@ -11,6 +11,7 @@ export async function getAllUsers(request: Request, response: Response){
     const userManagers = getManager().getRepository(User);
 
     const users = await userManagers.find();
+    
     response.send(users);
 }
 
@@ -70,3 +71,5 @@ export async function Me(request:Request, response:Response){
 
 
 }
+
+
