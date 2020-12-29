@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToOne, OneToMany, JoinColumn,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToOne, OneToMany, JoinColumn, ManyToOne,} from "typeorm";
 import { Status } from "./Status";
 import { User } from "./Users";
 import { UserRoles } from "./Users_roles";
@@ -9,11 +9,11 @@ export class Directive {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @OneToOne(type => User)
+    @ManyToOne(type => User, user => user.id)
     @JoinColumn()
     directive: User;
  
-    @OneToMany(type => User, user => user.id)
+    @ManyToOne(type => User, user => user.id)
     @JoinColumn()
     coachs: User[];
 

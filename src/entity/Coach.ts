@@ -9,11 +9,11 @@ export class Coach {
     @PrimaryGeneratedColumn()
     id: number;
     
-    @ManyToOne(type => User)
+    @ManyToOne(type => User, type => type.id )
     @JoinColumn()
     coach: User;
  
-    @ManyToMany(type => User, user => user.id, { cascade: true})
+    @ManyToOne(type => User, type => type.id )
     @JoinColumn()
     recruiters: User[];
 
