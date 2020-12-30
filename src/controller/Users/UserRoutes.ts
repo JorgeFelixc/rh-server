@@ -6,7 +6,7 @@ const userRoutes: IRoutes[] = [
         path:'/users',
         method:'get',
         action:getAllUsers,
-        authRequired: true,
+        authRequired: false,
     },
     {
         path:'/user/auth',
