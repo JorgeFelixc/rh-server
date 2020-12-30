@@ -32,7 +32,7 @@ createConnection().then(async connection => {
 
     // register all application routes
     AppRoutes.forEach(route => {
-        app[route.method]('/api/'+route.path,route.authRequired ? [validarJWT] : [] , (request: Request, response: Response, next: Function) => {
+        app[route.method]('/api'+route.path,route.authRequired ? [validarJWT] : [] , (request: Request, response: Response, next: Function) => {
             route.action(request, response)
                 .then(() => next)
                 .catch(err => next(err));
