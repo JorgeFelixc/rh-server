@@ -39,7 +39,7 @@ createConnection().then(async connection => {
         });
     });
 
-    console.log(app);
+    console.log(app.routes);
 
     // run app 
     app.listen(5000);
