@@ -39,6 +39,8 @@ createConnection().then(async connection => {
         });
     });
 
+    console.log(app);
+
     // run app 
     app.listen(5000);
 
