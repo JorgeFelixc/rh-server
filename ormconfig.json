@@ -7,7 +7,8 @@
   "database": "gpac",
   "synchronize": true,
   "entities": [
-    "dist/entity/*.js"
+    "dist/entity/*.js",
+    "src/entity/*.ts"
   ],
   "subscribers": [
     "src/subscriber/*.js"
