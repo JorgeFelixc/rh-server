@@ -8,7 +8,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({unique:true})
     email: string;
 
     @Column()
@@ -23,10 +23,10 @@ export class User {
     @Column()
     password: string;
 
-    @Column("path", {nullable:true})
+    @Column({nullable:true})
     image:string;
 
-    @ManyToOne(type => UserRoles, {
+    @ManyToOne(type => UserRoles,user => user.id, {
         cascade:true,
         primary:false,
     })
@@ -39,6 +39,7 @@ export class User {
     })
     @JoinColumn()
     status:Status;
+
 
     
 

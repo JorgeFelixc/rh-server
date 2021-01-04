@@ -82,7 +82,15 @@ export async function GetUserRole(req: Request, res: Response):Promise<User>{
     // current user id
     const { id } = await isLogged(req,res);
     
-    const user = await getManager().getRepository(User).findOne(id);
+    const user = await getManager().getRepository(User).findOne(id, {
+        join: {
+            alias:'user',
+            leftJoinAndSelect: {
+                "role": 'user.role',
+                "status": 'user.status',
+            }
+        }
+    });
     // if(!user){
     //     return false;
     // }

@@ -15,6 +15,6 @@ export class Coach {
  
     @ManyToOne(type => User, type => type.id )
     @JoinColumn()
-    recruiters: User[];
+    recruiters: User;
 
 }

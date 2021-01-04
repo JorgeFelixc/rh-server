@@ -29,8 +29,15 @@ export async function logIn(request: Request, response: Response){
          where: {
             email: email, 
             password:password,
+        }, 
+        join: {
+            alias:'user',
+            leftJoinAndSelect: {
+                "role": 'user.role',
+                "status": 'user.status',
+            }
         }
-    });
+    }, );
 
 
     if(!user){
@@ -40,9 +47,16 @@ export async function logIn(request: Request, response: Response){
 
     const token = BuildToken(user.email, user.id);
     response.setHeader("token", token);
-
+    // console.log("user:", user);
     response.send({
         jwt: token,
+        user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email:user.email,
+            role:user.role,
+            image: user.image,
+        }
     })
     // console.log("usuario:", user);
 }
@@ -62,13 +76,24 @@ export async function Me(request:Request, response:Response){
     }
 
     const userManagers = getManager().getRepository(User);
-    const userData = userManagers.findOne({where: { 
+    const userData = await userManagers.findOne({where: { 
         id: id,
+    },
+    join: {
+        alias:'user',
+        leftJoinAndSelect: {
+            "role": 'user.role',
+            "status": 'user.status',
+        }
     }});
 
     delete (await userData).password;
-    response.send(userData)
+    if(userData){
+        response.send(userData)
+        return;
+    }
 
+    response.status(404).send({error: 'You not loggin'});
 
 }
 

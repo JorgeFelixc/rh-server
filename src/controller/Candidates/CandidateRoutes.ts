@@ -1,5 +1,5 @@
 import { IRoutes } from "../../utils/interfaces";
-import { getCandidates } from "./CandidateControllers";
+import { getCandidates, postCandidate } from "./CandidateControllers";
 
 const candidatesRoutes: IRoutes[] = [
     {
@@ -8,6 +8,12 @@ const candidatesRoutes: IRoutes[] = [
         action:getCandidates,
         authRequired: true,
     },
+    {
+        path:'/candidates',
+        method:'post',
+        action: postCandidate,
+        authRequired:true,
+    }
 
 ] 
 

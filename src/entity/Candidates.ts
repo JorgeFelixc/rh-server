@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToOne, JoinColumn,} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToOne, JoinColumn, ManyToOne,} from "typeorm";
 import { Attachments } from "./Attachments";
 import { Status } from "./Status";
 import { User } from "./Users";
@@ -11,7 +11,7 @@ export class Candidate {
     id: number;
 
     @Column()
-    wishSalary: string;
+    wishSalary: number;
     
     @Column()
     title: string;
@@ -41,6 +41,8 @@ export class Candidate {
     @JoinColumn()
     user: User;
 
-
+    @ManyToOne(type => User,user => user.id)
+    @JoinColumn()
+    recruiter:User;
 
 }
