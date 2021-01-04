@@ -7,17 +7,17 @@
   "database": "gpac",
   "synchronize": true,
   "entities": [
-    "dist/entity/*.js"
+    "./dist/entity/*.js"
   ],
   "subscribers": [
-    "dist/subscriber/*.js"
+    "./dist/subscriber/*.js"
   ],
   "migrations": [
-    "dist/migration/*.js"
+    "./dist/migration/*.js"
   ],
   "cli": {
-    "entitiesDir": "dist/entity",
-    "migrationsDir": "dist/migration",
-    "subscribersDir": "dist/subscriber"
+    "entitiesDir": "./dist/entity",
+    "migrationsDir": "./dist/migration",
+    "subscribersDir": "./dist/subscriber"
   }
 }
