@@ -32,13 +32,33 @@ export async function GetCandidates(user:User){
             return false;
         }
 
-        const directive = await directiveManager.findOne({where: { directive: user.id}});
+        const directive = await directiveManager.find({
+            where: { directive: user.id},
+            join: {
+                alias:'dir',
+                leftJoinAndSelect:{
+                    "directive": "dir.directive",
+                    "coachs": "dir.coachs",
+                }
+            },
+        });
         
         console.log("Directive: no", directive);
         let recruitersID;
         if(directive){
-            const coachsOfDirective = directive.coachs.map(item => item.id);
-            const coachs = await coachManager.findByIds(coachsOfDirective);
+            const coachsOfDirective = directive.map(item => item.coachs.id);
+            const coachs = await coachManager.find({
+                where: {coach: In(coachsOfDirective)},
+                join: {
+                    alias:'cos',
+                    leftJoinAndSelect:{
+                        "recruiters": "cos.recruiters",
+                        "coach": "cos.coach",
+                    }
+                },
+            });
+
+            console.log("Coaches:",coachsOfDirective ,coachs);
             //obtiene todos los recruiters
             recruitersID = coachs.map(item => {
                 return item.recruiters.id;
@@ -77,7 +97,7 @@ export async function GetCandidates(user:User){
         });
 
         // console.log("candidatos:", candidates);
-        return candidates;
+        return ObjectRemoveProperties(candidates, ["password"]);
     }
     catch(ex){
         console.error("Error in candidates:", ex);
@@ -86,7 +106,7 @@ export async function GetCandidates(user:User){
 }
 
 
-function ObjectRemoveProperties(data: object[] | object, properties: string[] ){
+export function ObjectRemoveProperties(data: object[] | object, properties: string[] ){
 
     if(Array.isArray(data)){
         return data.map(item => {

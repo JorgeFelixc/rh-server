@@ -15,6 +15,6 @@ export class Directive {
  
     @ManyToOne(type => User, user => user.id)
     @JoinColumn()
-    coachs: User[];
+    coachs: User;
 
 }
