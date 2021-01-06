@@ -13,6 +13,7 @@ export async function GetCandidates(user:User){
         const coachManager = getManager().getRepository(Coach);
         const candidateManager = getManager().getRepository(Candidate);
     
+        // Recruiter simple logic
         if(user.role.description === 'recruiter'){
             let candidatesRecruiter = await candidateManager.find({
                 where: {recruiter: user.id},
@@ -32,6 +33,7 @@ export async function GetCandidates(user:User){
             return false;
         }
 
+
         const directive = await directiveManager.find({
             where: { directive: user.id},
             join: {
@@ -45,7 +47,7 @@ export async function GetCandidates(user:User){
         
         console.log("Directive: no", directive);
         let recruitersID;
-        if(directive){
+        if(directive.length > 0){
             const coachsOfDirective = directive.map(item => item.coachs.id);
             const coachs = await coachManager.find({
                 where: {coach: In(coachsOfDirective)},
